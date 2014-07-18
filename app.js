@@ -53,4 +53,4 @@ app.get('/', function(req, res, next){
 
 app.listen(port, '0.0.0.0');
 
-console.log('server now running at '+process.env.DOCUMENT_URI);
+console.log('server now running at '+process.env.DOCUMENT_URL);
