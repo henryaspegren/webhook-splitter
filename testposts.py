@@ -22,5 +22,5 @@ def test_post(event):
     "ip": "67.180.16.138"
       }
   }
-  return requests.post("http://localhost:8000/realtime/",
+  return requests.post("http://betterworks-express-server.herokuapp.com/this_is_a_test",
     data=json.dumps(sample_object), headers=headers)

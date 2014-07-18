@@ -9,10 +9,20 @@ app.use(bodyParser.json());
 // set default port to 8000
 var port = process.env.PORT || 8000;
 
-// set endpoint urls via environmnet variables
+// keep the url of the splitter secret for security
 var secret_url = process.env.SECRET_URL || '/realtime/';
-var endpoints = process.env.ENDPOINTS  || ['http://127.0.0.1:1337/'];
-// this should be a list
+
+// get all the url endpoints from the environment
+// add any endpoint as an environmnet variable of the form TARGET_*
+var endpoints = [];
+var regex = /(?:TARGET_)/i;
+for (var key in process.env) {
+  match = regex.exec(key);
+  if (match) {
+    console.log('FOUND ENDPOINT '+process.env[key]);
+    endpoints.push(process.env[key]);
+  }
+}
 
 console.log('webhook router created at '+
   secret_url+' with endpoints '+endpoints);
@@ -46,11 +56,11 @@ app.post(secret_url, function(req,res,next){
   res.send(200, 'REQUEST RECIEVED');
 });
 
-// main page to check if app is running, does not revel secret url
+// main page to check if app is running; does not revel secret url
 app.get('/', function(req, res, next){
   res.send(200, 'The server is functioning normally');
 });
 
 app.listen(port, '0.0.0.0');
 
-console.log('server now running at '+process.env.DOCUMENT_URL);
+console.log('server now running');
