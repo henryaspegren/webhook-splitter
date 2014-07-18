@@ -40,7 +40,6 @@ app.get(secret_url,function(req,res,next){
 
 // a post request to the secret URL is sent to each endpoint
 app.post(secret_url, function(req,res,next){
-  console.log(req.body);
   for (var i =0; i < endpoints.length; i++) {
     request({
       url: endpoints[i],
